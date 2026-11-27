@@ -1,9 +1,9 @@
 # Personal Assistant — Project State
 
-> **Next chat name: `Personal Assistant ver 2`**
+> **Next chat name: `Personal Assistant ver 3`**
 > Porting rule: when moved to a new chat, name it "Personal Assistant ver X" (X = this number + 1) and read this file first. Cost rule: cheapest capable model, compact often, ask the user to move chats when context grows.
 
-**State version:** 3 (2026-11-27)
+**State version:** 4 (2026-11-27)
 
 ## Goal
 An agent that tells the user their outstanding tasks (pay X bill, 30 comics unread, 4 shows unwatched, chores due, low stock, trips to prepare), pings them through the day, and lets them mark items done or snoozed with one tap.
@@ -58,7 +58,6 @@ The app JSON files are read-only to the Drive connector (`canEdit:false`), and t
 - Repo `marvyeo/PersonalAssistant` approved by user, but `gh repo create` was blocked by the permission check. User must create it (empty, public) or allow it; then attach it with add_repo access "push".
 
 ## Next steps
-1. Create the repo (see Decisions), then attach it with push access.
 2. Spot-check a real data file per app against the schemas (read-only).
 3. Build adapters + tests, then the checklist page, then the four scheduled tasks.
 
@@ -66,3 +65,4 @@ The app JSON files are read-only to the Drive connector (`canEdit:false`), and t
 - 2026-11-27 ver 1: Created. Scope fixed, repos read, `upcoming[]` contract found.
 - 2026-11-27 ver 2: Drive IDs for all six apps, FinancialPlanner bill schema, notification rules, state-storage design.
 - 2026-11-27 ver 3: Times, input method, snooze behaviour and stale-file handling decided. Repo creation blocked, awaiting user.
+- 2026-11-27 ver 4: Chat ver 2 started. Repo now attached (push branch claude/blissful-cannon-5serhn). Starting data spot-checks.

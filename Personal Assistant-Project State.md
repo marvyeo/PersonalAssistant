@@ -3,7 +3,7 @@
 > **Next chat name: `Personal Assistant ver 3`**
 > Porting rule: when moved to a new chat, name it "Personal Assistant ver X" (X = this number + 1) and read this file first. Cost rule: cheapest capable model, compact often, ask the user to move chats when context grows.
 
-**State version:** 4 (2026-11-27)
+**State version:** 5 (2026-11-27)
 
 ## Goal
 An agent that tells the user their outstanding tasks (pay X bill, 30 comics unread, 4 shows unwatched, chores due, low stock, trips to prepare), pings them through the day, and lets them mark items done or snoozed with one tap.
@@ -58,11 +58,17 @@ The app JSON files are read-only to the Drive connector (`canEdit:false`), and t
 - Repo `marvyeo/PersonalAssistant` approved by user, but `gh repo create` was blocked by the permission check. User must create it (empty, public) or allow it; then attach it with add_repo access "push".
 
 ## Next steps
-2. Spot-check a real data file per app against the schemas (read-only).
+2. Spot-check remaining 5 data files (ChoreWheel done).
 3. Build adapters + tests, then the checklist page, then the four scheduled tasks.
+
+## Spot-check findings
+- Drive `download_file_content` saves large files to disk (not into context), so inspect with Python, zero token cost. Use this pattern for all adapters.
+- ChoreWheel verified: root `{app, version, chores[63], log[32], settings, upcoming[47]}`. Chore = `{id, name, area, freq{unit,every}, assignee(either/marvin), lastDone, firstDue, notes, createdAt}`. Matches schema. All dates stop at 2026-10-24 (stale).
+- Still to spot-check: Comics, TV (20MB), FinancialPlanner, VacationGuru, MCC.
 
 ## Change log
 - 2026-11-27 ver 1: Created. Scope fixed, repos read, `upcoming[]` contract found.
 - 2026-11-27 ver 2: Drive IDs for all six apps, FinancialPlanner bill schema, notification rules, state-storage design.
 - 2026-11-27 ver 3: Times, input method, snooze behaviour and stale-file handling decided. Repo creation blocked, awaiting user.
 - 2026-11-27 ver 4: Chat ver 2 started. Repo now attached (push branch claude/blissful-cannon-5serhn). Starting data spot-checks.
+- 2026-11-27 ver 5: ChoreWheel schema verified; download-to-disk pattern noted.
